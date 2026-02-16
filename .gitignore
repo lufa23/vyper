@@ -63,3 +63,6 @@ repros/
 # used by fmt_commit_msg.py
 commitmsg.txt
 .agent-files/
+docs/reports/
+FETCH_HEAD
+revamp
