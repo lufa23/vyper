@@ -17,6 +17,12 @@ Vyper
     vyper-by-example/index
 
 .. toctree::
+    :caption: Formal Verification
+    :maxdepth: 2
+
+    formal-verification/index
+
+.. toctree::
     :caption: Language Description
     :maxdepth: 2
 
