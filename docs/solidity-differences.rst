@@ -47,10 +47,6 @@ Vyper prioritizes three properties: security, simplicity, and auditability.
 
 To achieve these properties, Vyper excludes features that obscure control flow or make code difficult to reason about. Each omission is a deliberate tradeoff: less flexibility in exchange for explicit behavior. See :ref:`Principles <design-principles>` for the full rationale.
 
-.. note::
-
-   Curve Finance chose Vyper for its AMM contracts because, in their view, developer errors are more likely than compiler errors. Vyper's restricted feature set reduces the surface area for such mistakes.
-
 No Modifiers
 ============
 
@@ -85,7 +81,7 @@ No Class Inheritance
 
 Solidity supports multiple inheritance, which introduces the diamond problem and C3 linearization complexity. Vyper excludes inheritance entirely.
 
-For code reuse, Vyper 0.4.0 introduced a module system:
+In Vyper 0.4.0, a module system was introduced for powerful code reuse:
 
 .. code-block:: vyper
 
@@ -220,7 +216,7 @@ The compiler generates the mutex. No manual reentrancy guard implementation requ
 
    The 2016 DAO hack exploited reentrancy to drain ~$60M in ETH. This led to the Ethereum hard fork that created Ethereum Classic.
 
-The ``extcall`` keyword makes external call sites explicit and easy to spot during code review. Note that ``@nonreentrant`` is opt-in and uses a global lock that protects against same-contract reentrancy: if any ``@nonreentrant`` function is executing, no other ``@nonreentrant`` function in the same contract can be entered. It does not prevent cross-contract reentrancy (i.e., contract A calling contract B which calls back into contract A). See :ref:`control-structures` for details on the lock behavior.
+The ``extcall`` keyword makes external call sites explicit and easy to spot during code review. Note that ``@nonreentrant`` is opt-in and uses a global lock that protects against same-contract reentrancy: if any ``@nonreentrant`` function is executing, no other ``@nonreentrant`` function in the same contract can be entered. Alternatively, ``#pragma nonreentrancy`` enables reentrancy protection by default for all functions in the contract, so ``@nonreentrant`` is only needed when not using the pragma. It does not prevent cross-contract reentrancy (i.e., contract A calling contract B which calls back into contract A). See :ref:`control-structures` for details on the lock behavior.
 
 Syntax Differences
 ==================
