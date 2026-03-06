@@ -77,7 +77,7 @@ Formal Verification with Vyper
 
 Formal verification makes demands on the language being verified. The simpler a language's semantics, the more tractable its proofs. A language that guarantees termination allows its semantics to be defined as a straightforward mathematical function. A language without escape hatches into raw bytecode can be modeled completely at the source level. A language without inheritance, overloading, or metaprogramming has less surface area for a formal model to cover.
 
-Vyper meets these requirements. All loops are bounded. Recursion is prohibited. There is no inheritance, no inline assembly, no operator overloading, no function modifiers. Every construct has clear, predictable semantics. These design choices were made for security and readability, but they also make Vyper a strong target for formal verification. Attempting this for a language with unbounded recursion, inheritance hierarchies, and inline assembly would require a formal model of far greater complexity, which is why no such model exists for any general-purpose smart contract language.
+Vyper meets these requirements. All loops are bounded. Recursion is prohibited. There is no inheritance, no inline assembly, no operator overloading, no function modifiers. Every construct has clear, predictable semantics. These design choices were made for security and readability, but they also make Vyper a strong target for formal verification. Attempting this for a language with unbounded recursion, inheritance hierarchies, and inline assembly would require a formal model of far greater complexity. Formal models of Solidity subsets exist (in Isabelle/HOL, the K Framework, and Coq), but none covers the full language including inline assembly, and none has been used for compiler verification.
 
 The `Verifereum <https://verifereum.org>`_ project is building a full-stack verified pipeline for Vyper in the `HOL4 <https://hol-theorem-prover.org>`_ proof assistant. The work is in `vyper-hol <https://github.com/verifereum/vyper-hol>`_. The components:
 
@@ -95,7 +95,28 @@ A formal model of the Ethereum Virtual Machine, built in the main `Verifereum re
 
 The formal semantics and EVM formalization are available now. The formal semantics is available today and provides the foundation for contract-level verification of Vyper contracts. Compiler verification is a long-term effort; see :doc:`compiler-verification` for the precedents and what it requires.
 
-When connected, these layers form a chain of proofs from source-level properties to on-chain execution. No such pipeline exists for any smart contract language. We are building it, component by component. For a live roadmap, see the `vyper-hol issue tracker <https://github.com/verifereum/vyper-hol/issues>`_.
+When connected, these layers form a chain of proofs from source-level properties to on-chain execution. No such pipeline exists for any widely-deployed smart contract language. We are building it, component by component. For a live roadmap, see the `vyper-hol issue tracker <https://github.com/verifereum/vyper-hol/issues>`_.
+
+
+Current Status
+--------------
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Component
+     - Status
+   * - Formal language semantics
+     - Available — core execution model; excludes chain interaction and elaboration
+   * - EVM formalization
+     - Available
+   * - Contract-level verification
+     - Enabled by the semantics; no public contract verifications yet
+   * - Compiler verification
+     - Long-term goal; not started
+   * - Translation validation
+     - Planned
 
 
 Why It Matters
